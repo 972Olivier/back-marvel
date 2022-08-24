@@ -60,9 +60,28 @@ app.get("/character/:characterId", async (req, res) => {
 });
 //------------------------------routes of comics------------------//
 app.get("/comics", async (req, res) => {
+  const title = req.query.title;
+  const skip = req.query.skip;
+  let limit = req.query.limit;
+  let page = "";
+  let result = "";
+  // console.log(title);
+  // console.log(skip);
+  // console.log(limit);
+  if (limit === "") {
+    limit = 100;
+  }
+  if (skip >= 2) {
+    page = skip - 1;
+  }
+  if (skip >= 2) {
+    result = page * limit;
+  }
+  // console.log(page);
+  // console.log(result)
   try {
     const response = await axios.get(
-      ` https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}`
+      ` https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${process.env.MARVEL_API_KEY}&title=${title}&skip=${result}&limit=${limit}`
     );
     res.json(response.data);
   } catch (error) {
