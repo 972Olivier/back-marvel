@@ -45,7 +45,7 @@ app.get("/characters", async (req, res) => {
 });
 
 app.get("/character/:characterId", async (req, res) => {
-  console.log(req.params.characterId);
+  // console.log(req.params.characterId);
 
   try {
     const response = await axios.get(
